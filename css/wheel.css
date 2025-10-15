@@ -1,0 +1,109 @@
+/* Estilos de la ruleta */
+.wheel-container {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin: 20px auto;
+}
+
+.wheel {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    position: relative;
+    transition: transform 3s ease-out;
+    background: conic-gradient(
+        #ffd600 0% 50%,
+        #ffeb3b 50% 100%
+    );
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    border: 8px solid rgba(255, 255, 255, 0.2);
+}
+
+.wheel-divider {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 4px;
+    background-color: #b7a000;
+    transform: translateX(-50%) translateY(-50%) rotate(90deg);
+    z-index: 3;
+}
+
+.wheel-text {
+    position: absolute;
+    width: 50%;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #1e3c72;
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
+    z-index: 3;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.wheel-text.spanish {
+    left: 0;
+}
+
+.wheel-text.english {
+    right: 0;
+}
+
+.wheel-pointer {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 40px solid #81c784;
+    z-index: 4;
+    filter: drop-shadow(0 0 5px rgba(0,0,0,0.3));
+    pointer-events: none;
+}
+
+.wheel-pointer::after {
+    content: '';
+    position: absolute;
+    top: -40px;
+    left: -10px;
+    width: 20px;
+    height: 20px;
+    background: #81c784;
+    border-radius: 50%;
+}
+
+/* Estilo para el botón de girar */
+.spin-button {
+    display: block !important;
+    margin: 20px auto !important;
+    width: auto !important;
+    min-width: 200px;
+    background: #4CAF50 !important;
+    color: white !important;
+    border: none !important;
+    padding: 15px 30px !important;
+    font-size: 18px !important;
+    border-radius: 25px !important;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.spin-button:hover {
+    background: #45a049 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0,0,0,0.2);
+}
+
+.spin-button:disabled {
+    background: #cccccc !important;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}

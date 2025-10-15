@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trivia Guaraní</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/wheel.css">
+    <link rel="stylesheet" href="css/questions.css">
+    <link rel="stylesheet" href="css/sentence.css">
+</head>
+<body>
+    <div class="topbar"><h1 id="gameTitle">Trivia Guaraní</h1></div>
+    <img src="img/logoIDT.png" alt="Logo IDT" class="logo">
+    
+    <div class="container">
+        <!-- Título movido a la barra superior -->
+        <div class="game-selector">
+            <button class="button" onclick="switchGame('trivia')">Trivia</button>
+            <button class="button" onclick="switchGame('sentence')">Ordenar Oraciones</button>
+            <button class="button" onclick="switchGame('numbers')">Números</button>
+        </div>
+        <div class="score">Puntaje: <span id="score">0</span></div>
+        <div class="time-display">Tiempo: <span id="timeDisplay">10</span>s</div>
+        
+        <div id="triviaContent">
+            <div class="wheel-container">
+                <div class="wheel" id="wheel">
+                    <div class="wheel-text spanish">Español</div>
+                    <div class="wheel-text english">English</div>
+                    <div class="wheel-divider"></div>
+                </div>
+                <div class="wheel-pointer"></div>
+            </div>
+            
+            <button class="button spin-button" onclick="spinWheel()">Girar Ruleta</button>
+        </div>
+        
+        <div class="question-container" id="questionContainer">
+            <div class="timer-bar">
+                <div class="timer-progress" id="timerProgress"></div>
+            </div>
+            <h2 id="questionText"></h2>
+            <div id="options"></div>
+        </div>
+    </div>
+
+    <div class="result-message" id="resultMessage">
+        <p id="resultText"></p>
+        <button class="continue-button" onclick="continueGame()">Continuar</button>
+    </div>
+
+    <div class="feedback-message" id="feedbackMessage"></div>
+
+    <!-- Juego de completar oraciones -->
+    <div class="sentence-game">
+        <h2>Completa la oración en Guaraní</h2>
+        
+        <div class="difficulty-selector">
+            <button class="level-button" onclick="selectLevel(1)">Nivel Fácil</button>
+            <button class="level-button" onclick="selectLevel(2)">Nivel Medio</button>
+            <button class="level-button" onclick="selectLevel(3)">Nivel Difícil</button>
+        </div>
+
+        <div class="game-content sentence-layout">
+            <aside class="alphabet-panel">
+                <h3>Abecedario Guaraní</h3>
+                <div class="alphabet-grid">
+                    <span>A</span><span>Ã</span><span>CH</span><span>E</span><span>Ẽ</span><span>G</span><span>H</span><span>I</span><span>Ĩ</span><span>J</span><span>K</span><span>L</span><span>M</span><span>N</span><span>Ñ</span><span>O</span><span>Õ</span><span>P</span><span>R</span><span>S</span><span>T</span><span>U</span><span>Ũ</span><span>V</span><span>Y</span><span>Ỹ</span>
+                </div>
+            </aside>
+            <div class="sentence-container">
+                <div class="level-info">Nivel: <span id="currentLevel">Fácil</span></div>
+                <p class="sentence-instruction">Completa la siguiente oración:</p>
+                
+                <div class="incomplete-sentence" id="incompleteSentence"></div>
+                
+                <div class="translation-text">Traducción: <span id="translationText"></span></div>
+                
+                <div class="input-container">
+                    <input type="text" id="userInput" placeholder="Escribe la palabra que falta...">
+                    <button id="checkButton" class="check-button" onclick="checkAnswer()">Comprobar</button>
+                    <button id="revealButton" class="reveal-button" onclick="revealAnswer()" disabled>Respuesta</button>
+                </div>
+
+                <div id="feedback" class="feedback"></div>
+                <div class="correct-answer" id="correctAnswer"></div>
+                
+                <button id="nextButton" class="next-button" onclick="loadNewSentence()">Siguiente</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Juego de números: emparejar número con palabra en guaraní -->
+    <div class="numbers-game" style="display:none;">
+        <h2>Empareja Números en Guaraní</h2>
+        <div class="numbers-container">
+            <div class="pairs-grid" id="numLeftGrid"></div>
+            <div class="pairs-grid" id="numRightGrid"></div>
+        </div>
+        <div id="numFeedback" class="feedback"></div>
+        <button class="next-button" id="numResetBtn" onclick="numbersReset()" style="display:none;">Reiniciar</button>
+    </div>
+
+    <script src="js/questions.js"></script>
+    <script src="js/wheel.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/words.js"></script>
+    <script src="js/sentence.js"></script>
+    <script src="js/numbers.js"></script>
+</body>
+</html> 
