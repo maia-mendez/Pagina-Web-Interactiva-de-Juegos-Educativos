@@ -1,0 +1,140 @@
+/* Estilos generales */
+body {
+    font-family: 'Arial', sans-serif;
+    background: #2f2c79;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    text-align: center;
+    max-width: 800px;
+    width: 100%;
+}
+
+.game-selector {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.game-selector .button {
+    width: auto;
+    min-width: 150px;
+}
+
+.logo {
+    position: fixed;
+    left: 20px;
+    top: 20px;
+    width: 200px;
+    height: auto;
+    z-index: 1000;
+}
+
+/* Barra superior blanca de lado a lado */
+.topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 900;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.topbar h1 {
+    margin: 0;
+    color: #000000; /* Título en negro para destacar sobre el blanco */
+}
+
+.topbar-buttons {
+    position: absolute;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.nav-button {
+    background: white;
+    color: #000000;
+    border: 2px solid #000000;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+.nav-button:hover {
+    background: #f0f0f0;
+    transform: scale(1.05);
+}
+
+.sound-toggle {
+    padding: 10px 15px;
+    font-size: 18px;
+}
+
+/* Compensar la barra fija para el contenido */
+body > .container { margin-top: 80px; }
+
+.button {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid white;
+    color: white;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s;
+    width: 80%;
+    max-width: 300px;
+    pointer-events: auto; /* Asegura que los clics no se bloqueen por superposiciones */
+}
+
+.button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+.score {
+    font-size: 24px;
+    margin: 20px 0;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.time-display {
+    font-size: 24px;
+    margin: 10px 0;
+    color: #FFE66D;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Animaciones */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+
+.shake {
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+    20% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    80% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+} 

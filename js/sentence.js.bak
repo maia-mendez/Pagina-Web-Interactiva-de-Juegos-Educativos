@@ -1,0 +1,320 @@
+// Base de datos de oraciones por nivel
+const sentences = {
+    1: [ // Nivel Fácil
+        name: "Saludos y presentaciones",
+        sentences: [
+            {
+                words: "Mba'éichapa nde",
+                translation: "¿Cómo estás?",
+                difficulty: 1
+            },
+            {
+                words: "Che héra ha María",
+                translation: "Mi nombre es María",
+                difficulty: 1
+            },
+            {
+                words: "Mba'éichapa reiko ko'ẽrõ nde",
+                translation: "¿Cómo amaneciste hoy tú?",
+                difficulty: 2
+            },
+            {
+                words: "Iporã asẽ nde ndive",
+                translation: "Es bueno encontrarme contigo",
+                difficulty: 2
+            },
+            {
+                words: "Che vy'a aikuaa haguére ndéve",
+                translation: "Estoy feliz de conocerte",
+                difficulty: 3
+            }
+        ]
+    },
+    "familia": {
+        name: "Familia y relaciones",
+        sentences: [
+            {
+                words: "Che sy ha'e porã",
+                translation: "Mi madre es buena",
+                difficulty: 1
+            },
+            {
+                words: "Che ru omba'apo heta",
+                translation: "Mi padre trabaja mucho",
+                difficulty: 2
+            },
+            {
+                words: "Che kyvy oho escuela pe",
+                translation: "Mi hermano menor va a la escuela",
+                difficulty: 2
+            },
+            {
+                words: "Ore roguereko peteĩ tupa porã",
+                translation: "Nosotros tenemos una linda familia",
+                difficulty: 3
+            }
+        ]
+    },
+    "comidas": {
+        name: "Comidas y bebidas",
+        sentences: [
+            {
+                words: "Akaru so'o ha avatiky",
+                translation: "Como carne y choclo",
+                difficulty: 1
+            },
+            {
+                words: "Che ay'u kaguy he'ẽ",
+                translation: "Yo bebo jugo dulce",
+                difficulty: 2
+            },
+            {
+                words: "Ko tembi'u he'ẽ ha hasy",
+                translation: "Esta comida es dulce y picante",
+                difficulty: 2
+            },
+            {
+                words: "Ore rojogua heta tembi'u mercado pe",
+                translation: "Nosotros compramos mucha comida en el mercado",
+                difficulty: 3
+            }
+        ]
+    },
+    "numeros": {
+        name: "Números y cantidades",
+        sentences: [
+            {
+                words: "Peteĩ ha mokõi ha",
+                translation: "Uno y dos y",
+                difficulty: 1
+            },
+            {
+                words: "Che areko po libro",
+                translation: "Tengo cinco libros",
+                difficulty: 2
+            },
+            {
+                words: "Pa ary oguereko che jarýi",
+                translation: "Mi abuela tiene cien años",
+                difficulty: 3
+            }
+        ]
+    },
+    "naturaleza": {
+        name: "Naturaleza y animales",
+        sentences: [
+            {
+                words: "Pe jagua morotĩ ha'e",
+                translation: "Ese perro es blanco",
+                difficulty: 1
+            },
+            {
+                words: "Guyra oveve yvate rupi",
+                translation: "El pájaro vuela por lo alto",
+                difficulty: 2
+            },
+            {
+                words: "Ka'aguy pyahu porã ko'ára pe",
+                translation: "El bosque está hermoso este día",
+                difficulty: 3
+            }
+        ]
+    },
+    "actividades": {
+        name: "Actividades diarias",
+        sentences: [
+            {
+                words: "Che amba'apo ko'ẽro",
+                translation: "Yo trabajo temprano",
+                difficulty: 1
+            },
+            {
+                words: "Añembo'e mbo'ehao pe aha",
+                translation: "Voy a estudiar a la escuela",
+                difficulty: 2
+            },
+            {
+                words: "Pyhareve che apu'ã ha ajepohéi",
+                translation: "En la mañana me levanto y me lavo",
+                difficulty: 3
+            }
+        ]
+    },
+    "emociones": {
+        name: "Emociones y sentimientos",
+        sentences: [
+            {
+                words: "Che vy'a ko'ága",
+                translation: "Estoy feliz ahora",
+                difficulty: 1
+            },
+            {
+                words: "Nde rehe che py'a horý",
+                translation: "Por ti mi corazón está alegre",
+                difficulty: 2
+            },
+            {
+                words: "Añembyasy ndajuhúi rupi chéve guarã",
+                translation: "Estoy triste porque no te encontré",
+                difficulty: 3
+            }
+        ]
+    }
+};
+
+let currentSentence = null;
+let currentWords = [];
+let selectedWords = [];
+let score = 0;
+let currentLevel = 1;
+let currentCategory = '';
+let availableSentences = [];
+
+function selectLevel(level) {
+    currentLevel = level;
+    document.querySelectorAll('.level-button').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    event.target.classList.add('active');
+    updateAvailableSentences();
+}
+
+function selectCategory(category) {
+    currentCategory = category;
+    if (category) {
+        document.querySelector('.game-content').style.display = 'block';
+        updateAvailableSentences();
+        loadNewSentence();
+    } else {
+        document.querySelector('.game-content').style.display = 'none';
+    }
+}
+
+function updateAvailableSentences() {
+    if (!currentCategory) return;
+    
+    availableSentences = sentences[currentCategory].sentences.filter(
+        sentence => sentence.difficulty === currentLevel
+    );
+}
+
+function initializeSentenceGame() {
+    document.querySelector('.sentence-game').style.display = 'block';
+    // El juego comenzará cuando se seleccione una categoría
+}
+
+function loadNewSentence() {
+    if (!currentCategory || availableSentences.length === 0) return;
+    
+    // Seleccionar una oración aleatoria del nivel y categoría actual
+    currentSentence = availableSentences[Math.floor(Math.random() * availableSentences.length)];
+    
+    // Separar y mezclar las palabras
+    currentWords = currentSentence.words.split(' ');
+    const shuffledWords = [...currentWords].sort(() => Math.random() - 0.5);
+    
+    // Limpiar selecciones anteriores
+    selectedWords = [];
+    
+    // Actualizar la interfaz
+    updateWordsContainer(shuffledWords);
+    updateAnswerContainer();
+    updateFeedback('');
+    
+    // Ocultar el botón siguiente y mostrar el botón de verificar
+    document.getElementById('nextButton').style.display = 'none';
+    document.getElementById('checkButton').style.display = 'block';
+    
+    // Mostrar la traducción
+    document.getElementById('translationText').textContent = currentSentence.translation;
+}
+
+function updateWordsContainer(words) {
+    const container = document.getElementById('wordsContainer');
+    container.innerHTML = '';
+    
+    words.forEach((word, index) => {
+        if (!selectedWords.includes(word)) {
+            const wordCard = document.createElement('div');
+            wordCard.className = 'word-card';
+            wordCard.textContent = word;
+            wordCard.onclick = () => selectWord(word);
+            container.appendChild(wordCard);
+        }
+    });
+}
+
+function updateAnswerContainer() {
+    const container = document.getElementById('answerContainer');
+    container.innerHTML = '';
+    
+    selectedWords.forEach((word, index) => {
+        const wordCard = document.createElement('div');
+        wordCard.className = 'word-card';
+        wordCard.textContent = word;
+        wordCard.onclick = () => deselectWord(index);
+        container.appendChild(wordCard);
+    });
+}
+
+function selectWord(word) {
+    if (!selectedWords.includes(word)) {
+        selectedWords.push(word);
+        updateWordsContainer(currentWords);
+        updateAnswerContainer();
+    }
+}
+
+function deselectWord(index) {
+    selectedWords.splice(index, 1);
+    updateWordsContainer(currentWords);
+    updateAnswerContainer();
+}
+
+function checkAnswer() {
+    const userSentence = selectedWords.join(' ');
+    const correctSentence = currentSentence.words;
+    
+    if (userSentence === correctSentence) {
+        updateFeedback('¡Correcto! +10 puntos');
+        score += 10;
+        document.getElementById('checkButton').style.display = 'none';
+        document.getElementById('nextButton').style.display = 'block';
+        updateScore(score);
+    } else {
+        updateFeedback('Intenta de nuevo');
+    }
+}
+
+function updateFeedback(message) {
+    document.getElementById('feedback').textContent = message;
+}
+
+function updateScore(newScore) {
+    const scoreElement = document.getElementById('score');
+    if (scoreElement) {
+        scoreElement.textContent = newScore;
+    }
+}
+
+// Función para cambiar entre juegos
+function switchGame(gameType) {
+    // Ocultar todos los contenedores de juego
+    document.querySelector('.question-container').style.display = 'none';
+    document.querySelector('.sentence-game').style.display = 'none';
+    document.querySelector('.wheel-container').style.display = 'none';
+    document.querySelector('.spin-button').style.display = 'none';
+
+    // Mostrar el juego seleccionado
+    switch(gameType) {
+        case 'trivia':
+            document.querySelector('.question-container').style.display = 'block';
+            document.querySelector('.wheel-container').style.display = 'block';
+            document.querySelector('.spin-button').style.display = 'block';
+            break;
+        case 'sentence':
+            document.querySelector('.sentence-game').style.display = 'block';
+            loadNewSentence();
+            break;
+    }
+}

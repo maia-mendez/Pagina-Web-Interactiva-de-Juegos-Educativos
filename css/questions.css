@@ -1,0 +1,122 @@
+/* Estilos para las preguntas y mensajes */
+.question-container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 15px;
+    margin: 20px 0;
+    display: none;
+    backdrop-filter: blur(5px);
+    position: relative;
+    z-index: 5000; /* Asegura estar por encima de la ruleta */
+    pointer-events: auto;
+}
+
+/* Asegurar que los botones de respuesta reciban clics por encima de cualquier superposición */
+.answer-button {
+    position: relative;
+    z-index: 6000;
+    pointer-events: auto;
+}
+
+.timer-bar {
+    width: 100%;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    margin: 10px 0;
+    overflow: hidden;
+}
+
+.timer-progress {
+    width: 100%;
+    height: 100%;
+    background: #4ECDC4;
+    transition: width 1s linear;
+}
+
+.button.correct {
+    background: #4CAF50;
+    border-color: #4CAF50;
+    color: white;
+}
+
+.button.incorrect {
+    background: #f44336;
+    border-color: #f44336;
+    color: white;
+}
+
+.result-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    display: none;
+    z-index: 9999;
+    backdrop-filter: blur(5px);
+    text-align: center;
+    min-width: 300px;
+    color: white;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+.result-message p {
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.continue-button {
+    background: #4ECDC4;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin: 0 auto;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: block;
+    width: fit-content;
+    font-size: 16px;
+}
+
+.continue-button:hover {
+    background: #45b7af;
+    transform: scale(1.05);
+}
+
+.feedback-message {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 20px;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 1000;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.feedback-message.correct {
+    background: rgba(76, 175, 80, 0.9);
+    color: white;
+}
+
+.feedback-message.incorrect {
+    background: rgba(244, 67, 54, 0.9);
+    color: white;
+}
+
+.feedback-message.time {
+    background: rgba(255, 230, 109, 0.9);
+    color: #1e3c72;
+}
+
+.show-feedback {
+    animation: fadeInOut 2s ease-in-out forwards;
+} 
